@@ -1,19 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main v-cloak>
+    <div class="container column">
+      <Controls
+        @addBlock="addBlock"
+      />
+      <Blocks />
+    </div>
+    <Comments />
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Controls from "./components/Controls";
+import Blocks from "./components/Blocks";
+import Comments from "./components/Comments"
 export default {
   name: 'App',
+  data() {
+    return {
+      blocks: []
+    }
+  },
   components: {
-    HelloWorld
+    Controls,
+    Blocks,
+    Comments
+  },
+  methods: {
+    addBlock(block) {
+      this.blocks.push(block)
+    }
   }
 }
 </script>
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -22,5 +41,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+[v-cloak] {
+  display: none;
 }
 </style>

@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Заголовок",
+    "value": "title"
+  },
+  {
+    "title": "Подзаголовок",
+    "value": "subtitle"
+  },
+  {
+    "title": "Аватар",
+    "value": "avatar"
+  },
+  {
+    "title": "Текст",
+    "value": "text"
+  }
+]

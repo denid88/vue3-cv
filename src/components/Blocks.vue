@@ -1,23 +1,59 @@
 <template>
   <div class="card card-w70">
-    <h1>Резюме Nickname</h1>
-    <div class="avatar">
-      <img src="https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png">
+    <h3 v-if="blocks.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
+    <div v-else
+      v-for="block in blocks"
+      :key="block.type"
+    >
+      <AvatarBlock
+        v-if="block.type === 'avatar'"
+        :avatar="block.value"
+      />
+      <TitleBlock 
+        v-else-if="block.type === 'title'"
+        :title="block.value"
+      />
+      <SubtitleBlock
+        v-else-if="block.type === 'subtitle'"
+        :subtitle="block.value"
+      />
+      <TextBlock 
+        v-else-if="block.type === 'text'"
+        :text="block.value"
+        @moveUpBlock="moveUpBlock(block)"
+        @moveDownBlock="moveDownBlock(block)"
+        @deleteBlock="deleteBlock(block)"
+        @editBlock="editBlock(block)"
+      />
     </div>
-    <h2>Опыт работы</h2>
-    <p>
-      главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь отвергает его существование), алкоголик, социопат, дедушка Морти. На момент начала третьего сезона ему 70 лет[1]. Рик боится пиратов, а его главной слабостью является некий - "Санчезиум". Исходя из того, что существует неограниченное количество вселенных, существует неограниченное количество Риков, герой сериала предположительно принадлежит к измерению С-137. В серии комикcов Рик относится к измерению C-132, а в игре «Pocket Mortys» — к измерению C-123[2]. Прототипом Рика Санчеза является Эмметт Браун, герой кинотрилогии «Назад в будущее»[3].
-    </p>
-    <h3>Добавьте первый блок, чтобы увидеть результат</h3>
   </div>
 </template>
-
 <script>
+import AvatarBlock from '@/components/AvatarBlock' 
+import TitleBlock from '@/components/TitleBlock' 
+import SubtitleBlock from '@/components/SubtitleBlock' 
+import TextBlock from '@/components/TextBlock' 
+import { controlMixin } from '../mixins/control.mixin'
 export default {
-  name: "Content"
+  name: "Content",
+  props: {
+    blocks: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
+  mixins: [controlMixin],
+  components: {
+    AvatarBlock,
+    TitleBlock,
+    SubtitleBlock,
+    TextBlock
+  }
 }
 </script>
-
-<style scoped>
-
+<style lang="scss">
+.block {
+  position: relative;
+}
 </style>

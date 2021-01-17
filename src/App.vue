@@ -1,19 +1,28 @@
 <template>
   <main v-cloak>
+    <div class="title-app">CV Constructor</div>
     <div class="container column">
       <Controls
         @addBlock="addBlock"
       />
-      <Blocks />
+      <Blocks
+        :blocks="blocks"
+        @deleteBlock="deleteBlock"
+        @moveUpBlock="moveUpBlock"
+        @moveDownBlock="moveDownBlock"
+      />
     </div>
     <Comments />
   </main>
 </template>
 
 <script>
-import Controls from "./components/Controls";
-import Blocks from "./components/Blocks";
-import Comments from "./components/Comments"
+Array.prototype.move = function(from, to) {
+  this.splice(to, 0, this.splice(from, 1)[0]);
+};
+import Controls from "@/components/Controls";
+import Blocks from "@/components/Blocks";
+import Comments from "@/components/Comments"
 export default {
   name: 'App',
   data() {
@@ -29,6 +38,22 @@ export default {
   methods: {
     addBlock(block) {
       this.blocks.push(block)
+    },
+    deleteBlock(block) {
+      this.blocks.splice(this.blocks.indexOf(block), 1)
+    },
+    editBlock(block) {
+      console.log(block);
+    },
+    moveUpBlock(block) {
+      const index = this.blocks.indexOf(block)
+      console.log(index);
+      this.blocks.move(index, index - 1)
+    },
+    moveDownBlock(block) {
+      const index = this.blocks.indexOf(block)
+      console.log(index);
+      this.blocks.move(index, index + 1)
     }
   }
 }
@@ -44,5 +69,11 @@ export default {
 }
 [v-cloak] {
   display: none;
+}
+.title-app {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: white;
+  text-align: center;
 }
 </style>

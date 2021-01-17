@@ -1,4 +1,9 @@
 export const controlMixin = {
+  data() {
+    return {
+      isContentEditable: false
+    }
+  },
   emits: ['moveUpBlock', 'moveDownBlock', 'deleteBlock', 'editBlock'],
   methods: {
     moveUpBlock(value) {
@@ -10,8 +15,14 @@ export const controlMixin = {
     deleteBlock(value) {
       value === null ? this.$emit('deleteBlock') : this.$emit('deleteBlock', value)
     },
-    editBlock() {
+    editBlock(value) {
       value === null ? this.$emit('editBlock') : this.$emit('editBlock', value)
+    },
+    doNotContentEditable() {
+      this.isContentEditable = false
+    },
+    editBlockActivated() {
+      this.isContentEditable = true
     }
   }
 }

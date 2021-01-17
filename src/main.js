@@ -1,15 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/css/style.css'
-import firebase from 'firebase'
+import axios from 'axios'
+import vue3notification from 'notification_vue_3'
 
-firebase.initializeApp({
-  apiKey: '### FIREBASE API KEY ###',
-  authDomain: '### FIREBASE AUTH DOMAIN ###',
-  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
-});
-
-const db = firebase.firestore();
+axios.defaults.baseURL = 'https://vue3-bbb1b-default-rtdb.europe-west1.firebasedatabase.app/'
 
 createApp(App)
+  .use(vue3notification)
   .mount('#app')

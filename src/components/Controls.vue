@@ -22,9 +22,9 @@
 </template>
 <script>
 import controls from '../assets/settings/controls.json'
-import Block from "../models/Block";
+import Block from '../models/Block'
 export default {
-  name: "Control",
+  name: 'Control',
   data() {
     return {
       type: controls[0].value,

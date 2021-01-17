@@ -7,7 +7,7 @@
     <div 
       class="accept false"
       @click="notAccept"
-    ><i class="fas fa-window-close"></i>Close</div>
+    ><i class="fas fa-window-close"></i>Not save</div>
   </div>  
 </template>
 <script>

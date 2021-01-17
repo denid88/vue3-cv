@@ -15,7 +15,8 @@
       class="action delete"
       @click="deleteBlock"
     ><i class="fas fa-trash-alt"></i></div>
-    <div 
+    <div
+      v-if="!withoutEdit"
       class="action edit"
       @click="editBlock"
     ><i class="fas fa-edit"></i></div> 

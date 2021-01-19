@@ -4,7 +4,7 @@ import './assets/css/style.css'
 import axios from 'axios'
 import vue3notification from 'notification_vue_3'
 
-axios.defaults.baseURL = 'https://vue3-bbb1b-default-rtdb.europe-west1.firebasedatabase.app/'
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL
 
 createApp(App)
   .use(vue3notification)

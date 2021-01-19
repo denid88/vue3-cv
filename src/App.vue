@@ -13,7 +13,7 @@
         @editBlock="editBlock"
         v-if="!isLoadingBlocks"
       />
-      <Loader 
+      <Loader
         v-else-if="isLoadingBlocks"
       />
     </div>
@@ -56,9 +56,9 @@ export default {
     this.loadBlocks()
   },
   methods: {
-    async loadBlocks() {
+    loadBlocks() {
       this.isLoadingBlocks = true
-      await axios.get('/blocks.json')
+      axios.get('/blocks.json')
         .then(result => {
           if (result.status === 200) {
             this.blocks = result.data != null ? Object.values(result.data) : []
@@ -71,8 +71,8 @@ export default {
           this.showNotification({type: 'danger', text: e.message})
         })
     },
-    async addBlock(block) {
-      await axios.post('/blocks.json', block)
+    addBlock(block) {
+       axios.post('/blocks.json', block)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The new block was added to CV'})
@@ -82,11 +82,11 @@ export default {
         .catch((e) => {
           this.showNotification({type: 'danger', text: e.message})
         })
-      
+
     },
-    async deleteBlock(block) {
+    deleteBlock(block) {
       this.blocks.splice(this.blocks.indexOf(block), 1)
-      await axios.put('/blocks.json', this.blocks)
+      axios.put('/blocks.json', this.blocks)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The block was deleted'})
@@ -96,10 +96,10 @@ export default {
           this.showNotification({type: 'danger', text: e.message})
         })
     },
-    async editBlock(block) {
+    editBlock(block) {
       const index = this.blocks.indexOf(block)
       this.blocks[index].value = block.value
-      await axios.put('/blocks.json', this.blocks)
+      axios.put('/blocks.json', this.blocks)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The block was updated'})
@@ -109,37 +109,37 @@ export default {
           this.showNotification({type: 'danger', text: e.message})
         })
     },
-    async moveUpBlock(block) {
+    moveUpBlock(block) {
       const index = this.blocks.indexOf(block)
-      this.blocks.move(index, index - 1)
+      this.blocks = move(this.blocks, index, index - 1)
 
-      await axios.put('/blocks.json', this.blocks)
+      axios.put('/blocks.json', this.blocks)
         .then()
         .catch((e) => {
           this.showNotification({type: 'danger', text: e.message})
         })
     },
-    async moveDownBlock(block) {
+    moveDownBlock(block) {
       const index = this.blocks.indexOf(block)
-      this.blocks.move(index, index + 1)
+      this.blocks = move(this.blocks, index, index + 1)
 
-      await axios.put('/blocks.json', this.blocks)
+       axios.put('/blocks.json', this.blocks)
         .then()
         .catch((e) => {
           this.showNotification({type: 'danger', text: e.message})
         })
     },
-    async loadComments() {
+    loadComments() {
       if (this.isLoadedComments === true) {return this.isLoadedComments = false}
       this.isLoadingComments = true
-      await axios.get(commentsUrl)
+      axios.get(commentsUrl)
         .then(result => {
           this.isLoadingComments = false
           this.isLoadedComments = true
           if (result.status === 200) {
             this.comments = result.data
             this.showNotification({type: 'primary', text: 'The comments loaded successfully'})
-          }         
+          }
         })
         .catch(e => {
           this.isLoadedComments = true

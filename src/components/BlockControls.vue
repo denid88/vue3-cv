@@ -1,25 +1,24 @@
 <template>
   <div class="controls" @mouseenter="showActiveBlocks" @mouseleave="hideActiveBlocks">
-    <div 
+    <div
       v-if="activeBlocks"
       class="action up"
       @click="moveUpBlock"
     ><i class="fas fa-arrow-circle-up"></i></div>
-    <div 
+    <div
       v-if="activeBlocks"
       class="action down"
       @click="moveDownBlock"
     ><i class="fas fa-arrow-circle-down"></i></div>
-    <div 
+    <div
       v-if="activeBlocks"
       class="action delete"
       @click="deleteBlock"
     ><i class="fas fa-trash-alt"></i></div>
     <div
-      v-if="!withoutEdit"
       class="action edit"
       @click="editBlock"
-    ><i class="fas fa-edit"></i></div> 
+    ><i class="fas fa-edit"></i></div>
   </div>
 </template>
 <script>

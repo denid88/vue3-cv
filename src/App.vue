@@ -29,6 +29,7 @@
 
 <script>
 const commentsUrl = 'https://jsonplaceholder.typicode.com/comments?_limit=42'
+const apiBaseUrl = process.env.VUE_APP_API_BASE_URL
 import { move } from '@/utils/move'
 import axios from 'axios'
 import Controls from "@/components/Controls";
@@ -58,7 +59,7 @@ export default {
   methods: {
     loadBlocks() {
       this.isLoadingBlocks = true
-      axios.get('/blocks.json')
+      axios.get(`${apiBaseUrl}/blocks.json`)
         .then(result => {
           if (result.status === 200) {
             this.blocks = result.data != null ? Object.values(result.data) : []
@@ -72,7 +73,7 @@ export default {
         })
     },
     addBlock(block) {
-       axios.post('/blocks.json', block)
+       axios.post(`${apiBaseUrl}/blocks.json`, block)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The new block was added to CV'})
@@ -86,7 +87,7 @@ export default {
     },
     deleteBlock(block) {
       this.blocks.splice(this.blocks.indexOf(block), 1)
-      axios.put('/blocks.json', this.blocks)
+      axios.put(`${apiBaseUrl}/blocks.json`, this.blocks)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The block was deleted'})
@@ -99,7 +100,7 @@ export default {
     editBlock(block) {
       const index = this.blocks.indexOf(block)
       this.blocks[index].value = block.value
-      axios.put('/blocks.json', this.blocks)
+      axios.put(`${apiBaseUrl}/blocks.json`, this.blocks)
         .then((result) => {
           if (result.status === 200) {
             this.showNotification({type: 'primary', text: 'The block was updated'})
@@ -113,7 +114,7 @@ export default {
       const index = this.blocks.indexOf(block)
       this.blocks = move(this.blocks, index, index - 1)
 
-      axios.put('/blocks.json', this.blocks)
+      axios.put(`${apiBaseUrl}/blocks.json`, this.blocks)
         .then()
         .catch((e) => {
           this.showNotification({type: 'danger', text: e.message})
@@ -123,7 +124,7 @@ export default {
       const index = this.blocks.indexOf(block)
       this.blocks = move(this.blocks, index, index + 1)
 
-       axios.put('/blocks.json', this.blocks)
+       axios.put(`${apiBaseUrl}/blocks.json`, this.blocks)
         .then()
         .catch((e) => {
           this.showNotification({type: 'danger', text: e.message})
